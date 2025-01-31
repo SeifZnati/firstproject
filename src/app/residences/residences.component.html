@@ -1,0 +1,46 @@
+<!--residence
+<table>
+  <tr>
+    <td>id</td>
+    <td>name</td>
+    <td>address</td>
+    <td>image</td>
+    <td>status</td>
+    <td>action</td>
+  </tr>
+  <tr *ngFor="let residence of listResidences">
+    <td>{{ residence.id }}</td>
+    <td>{{ residence.name | uppercase}}</td>
+    <td>{{ residence.address }}</td>
+    <td> <img [src]= "residence.image" alt="Residence Image" width="75" height="75" ></td>
+    <td>{{ residence.status }}</td>
+    <td *ngIf="residence.address != 'inconnu'">
+      <button (click)="showLocationexiste(residence)">ShowLocation</button>
+    </td>
+    <td *ngIf="residence.address === 'inconnu'">
+      <button (click)="showLocationinconnue">ShowLocation</button>
+    </td>
+</table>
+<input [(ngModel)]="ShowExist" type="text" placeholder="Recherchez une residence">
+<div *ngFor="let residence of listResidences" >
+  <div *ngIf="ShowExist == residence.name">
+    <ul>
+      <li>{{ residence.id }}</li>
+    </ul>
+  </div>
+</div>-->
+<div class="card-deck">
+  <div class="row">
+    <div *ngFor="let residence of listResidences" class="col-md-4 mb-4">
+      <div class="card h-100">
+        <img class="card-img-top" [src]="residence.image" alt="Image Residence">
+        <div class="card-body">
+          <h5 class="card-title">{{residence.name}}</h5>
+          <p class="card-text">{{residence.address}}</p>
+          <p class="card-text">{{residence.status}}</p>
+          <a href="#" class="btn btn-primary" (click)="showLocation(residence)">Show Location</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
