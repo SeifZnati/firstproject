@@ -29,18 +29,64 @@
     </ul>
   </div>
 </div>-->
+
 <div class="card-deck">
   <div class="row">
-    <div *ngFor="let residence of listResidences" class="col-md-4 mb-4">
+    <div class="col-md-12 mb-4">
+      <div class="input-group">
+        <input type="text" class="form-control" [(ngModel)]="search" (ngModelChange)="onSearch()" placeholder="Search...">
+        <button class="btn btn-outline-secondary" type="button" (click)="clearSearch()">Clear</button>
+      </div>
+    </div>
+    <div *ngFor="let residence of filteredResidences" class="col-md-4 mb-4">
       <div class="card h-100">
-        <img class="card-img-top" [src]="residence.image" alt="Image Residence">
+        <div class="ratio ratio-16x9">
+          <img [src]="residence.image" class="card-img-top" alt="Image Residence" style="object-fit: cover;">
+        </div>
         <div class="card-body">
           <h5 class="card-title">{{residence.name}}</h5>
           <p class="card-text">{{residence.address}}</p>
-          <p class="card-text">{{residence.status}}</p>
+          <div *ngIf="residence.status === 'Disponible'">
+            <p class="card-text text-success">
+              {{ residence.status }} <i class="bi bi-check-circle-fill"></i>
+            </p>
+          </div>
+          <div *ngIf="residence.status === 'En Construction'">
+            <p class="card-text text-warning">
+              {{ residence.status }} <i class="bi bi-tools"></i>
+            </p>
+          </div>
+          <div *ngIf="residence.status === 'Vendu'">
+            <p class="card-text text-danger">
+              {{ residence.status }} <i class="bi bi-house-check-fill"></i>
+            </p>
+          </div>
           <a href="#" class="btn btn-primary" (click)="showLocation(residence)">Show Location</a>
+          <button
+            class="btn mt-2"
+            [ngClass]="{'btn-danger': isLiked(residence), 'btn-outline-danger': !isLiked(residence)}"
+            (click)="likeResidence(residence)">
+            <i class="bi bi-heart"></i>
+            <span *ngIf="isLiked(residence); else notLiked">Liked</span>
+            <ng-template #notLiked>Like</ng-template>
+          </button>
         </div>
       </div>
     </div>
   </div>
+</div>
+
+<div class="mt-5">
+  <h3>Your Favorites</h3>
+  <div *ngIf="fav.length > 0; else noFavorites">
+    <ul>
+      <li *ngFor="let favorite of fav">{{favorite.name}}</li>
+    </ul>
+  </div>
+  <ng-template #noFavorites>
+    <p>No favorites yet. Check available residences!</p>
+    <button class="btn btn-primary mt-2" (click)="scrollToTop()">
+      <i class="bi bi-arrow-up"></i> Go to Top
+    </button>
+  </ng-template>
 </div>

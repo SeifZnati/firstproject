@@ -38,5 +38,42 @@ export class ResidencesComponent {
   }
 
 
+  fav: Residence[] = [];
+
+  likeResidence(residence: Residence) {
+    const index = this.fav.findIndex(like => like.id === residence.id);
+    if (index === -1) {
+      this.fav.push(residence);
+      alert(`${residence.name} a été ajoutée à vos favoris!`);
+    } else {
+      this.fav.splice(index, 1);
+      alert(`${residence.name} a été retirée de vos favoris!`);
+    }
+  }
+
+  isLiked(residence: Residence): boolean {
+    return this.fav.some(like => like.id === residence.id);
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   ShowExist = "";
+
+  search: string = '';
+
+  filteredResidences: Residence[] = this.listResidences;
+
+  onSearch() {
+    this.filteredResidences = this.listResidences.filter(residence =>
+      residence.name.toLowerCase().includes(this.search.toLowerCase())
+    );
+  }
+
+  clearSearch() {
+    this.search = '';
+    this.filteredResidences = this.listResidences;
+  }
+
 }
