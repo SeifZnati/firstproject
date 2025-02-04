@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
   //interpolation
-  name="Kacem";
+  name="Seif";
 
   //property binding
   status=false;

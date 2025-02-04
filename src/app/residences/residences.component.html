@@ -61,15 +61,14 @@
               {{ residence.status }} <i class="bi bi-house-check-fill"></i>
             </p>
           </div>
-          <a href="#" class="btn btn-primary" (click)="showLocation(residence)">Show Location</a>
-          <button
-            class="btn mt-2"
-            [ngClass]="{'btn-danger': isLiked(residence), 'btn-outline-danger': !isLiked(residence)}"
-            (click)="likeResidence(residence)">
-            <i class="bi bi-heart"></i>
-            <span *ngIf="isLiked(residence); else notLiked">Liked</span>
-            <ng-template #notLiked>Like</ng-template>
-          </button>
+          <div class="d-flex justify-content-between">
+            <a href="#" class="btn btn-primary" (click)="showLocation(residence)">Show Location</a>
+            <button class="btn mt-2" [ngClass]="{'btn-danger': isLiked(residence), 'btn-outline-danger': !isLiked(residence)}" (click)="likeResidence(residence)">
+              <i class="bi bi-heart"></i>
+              <span *ngIf="isLiked(residence); else notLiked"> Liked</span>
+              <ng-template #notLiked> Like</ng-template>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -80,7 +79,8 @@
   <h3>Your Favorites</h3>
   <div *ngIf="fav.length > 0; else noFavorites">
     <ul>
-      <li *ngFor="let favorite of fav">{{favorite.name}}</li>
+      <h5>{{fav.length}} Residences</h5>
+    <li *ngFor="let favorite of fav">{{favorite.name}}</li>
     </ul>
   </div>
   <ng-template #noFavorites>
