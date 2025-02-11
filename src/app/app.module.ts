@@ -7,12 +7,13 @@ import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { HomeeComponent } from './homee/homee.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ResidencesComponent } from './residences/residences.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AppRoutingModule } from './app-routing.module';
 import {AnnonceModule} from "./annonce/annonce.module";
 import {NavModule} from "./nav/nav.module";
+import { FormResidenceComponent } from './form-residence/form-residence.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import {NavModule} from "./nav/nav.module";
     HomeeComponent,
     ResidencesComponent,
     NotFoundComponent,
+    FormResidenceComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,7 +32,8 @@ import {NavModule} from "./nav/nav.module";
     FormsModule,
     AppRoutingModule,
     AnnonceModule,
-    NavModule
+    NavModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
