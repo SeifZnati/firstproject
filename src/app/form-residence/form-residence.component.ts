@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {ResidenceService} from "../service/residence.service";
 
 @Component({
   selector: 'app-form-residence',
@@ -9,14 +10,17 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 export class FormResidenceComponent implements OnInit {
 
   formR!: FormGroup
-  
+  constructor(private resService:ResidenceService) {
+
+  }
+
 
   ngOnInit(): void {
     this.formR = new FormGroup({
       id: new FormControl('', [Validators.required, Validators.minLength(2)]),
       name: new FormControl('', [Validators.required, Validators.pattern(/^[A-Z][a-z]/)]),
       address: new FormControl('', [Validators.required, Validators.maxLength(10)]),
-      image: new FormControl('', Validators.required),
+      image: new FormControl('../../assets/images/R3.jpg', Validators.required),
       status: new FormControl('', [Validators.required, Validators.pattern(/^Disponnible$/)])
     })
   }
@@ -28,6 +32,10 @@ export class FormResidenceComponent implements OnInit {
 
 
   add(){
-    console.log(JSON.stringify(this.formR.value));
+    //console.log(JSON.stringify(this.formR.value));
+    this.resService.addResidence(this.formR.value).subscribe(()=>{
+        console.log("Added!!!!!!!!!!!!!!!!!!!!!!!");
+    }
+    )
   }
 }

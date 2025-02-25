@@ -14,6 +14,7 @@ import { AppRoutingModule } from './app-routing.module';
 import {AnnonceModule} from "./annonce/annonce.module";
 import {NavModule} from "./nav/nav.module";
 import { FormResidenceComponent } from './form-residence/form-residence.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { FormResidenceComponent } from './form-residence/form-residence.componen
     AppRoutingModule,
     AnnonceModule,
     NavModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

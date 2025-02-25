@@ -1,12 +1,31 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Residence} from "../../core/models/Residence";
+import {ResidenceService} from "../service/residence.service";
 
 @Component({
   selector: 'app-residences',
   templateUrl: './residences.component.html',
   styleUrls: ['./residences.component.css']
 })
-export class ResidencesComponent {
+export class ResidencesComponent implements OnInit {
+  listServiceResidences: Residence[] = [];
+  filteredResidences: Residence[] = [];
+  ngOnInit() {
+    this.residenceService.getAllResidences().subscribe((residences) => {
+      this.listServiceResidences = residences;
+      this.filteredResidences = this.listServiceResidences;
+      console.log(this.listServiceResidences);
+    });
+  }
+
+  num!: any;
+  constructor(private residenceService: ResidenceService){
+  }
+
+  shownumber(){
+    this.num = this.residenceService.getnumberofvalue(this.listServiceResidences, 'name', 'El Arij');
+  }
+
 
   listResidences: Residence[] = [
     {
@@ -59,21 +78,25 @@ export class ResidencesComponent {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  ShowExist = "";
-
   search: string = '';
 
-  filteredResidences: Residence[] = this.listResidences;
 
   onSearch() {
-    this.filteredResidences = this.listResidences.filter(residence =>
-      residence.name.toLowerCase().includes(this.search.toLowerCase())
+    this.filteredResidences = this.listServiceResidences.filter(residence =>
+      residence.address.toLowerCase().includes(this.search.toLowerCase())
     );
   }
 
   clearSearch() {
     this.search = '';
-    this.filteredResidences = this.listResidences;
+    this.filteredResidences = this.listServiceResidences;
   }
 
+  deleteResidence(id: any) {
+    this.residenceService.deleteResidence(id).subscribe(() => {
+      alert('Résidence supprimée avec succès!');
+      }
+    );
+    this.ngOnInit();
+  }
 }
