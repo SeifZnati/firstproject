@@ -1,0 +1,44 @@
+<div class="container">
+  <form [formGroup]="formR">
+    <div class="input-group">
+      <span class="input-group-text">ID</span>
+      <input type="number" aria-label="ID" formControlName="id" class="form-control">
+    </div>
+    <div class="alert alert-danger" *ngIf="formR.get('id')?.invalid && formR.get('id')?.touched">
+      msg: min length 2
+    </div>
+    <br>
+    <div class="input-group">
+      <span class="input-group-text">Name</span>
+      <input type="text" aria-label="Name" formControlName="name" class="form-control">
+    </div>
+    <div class="alert alert-danger" *ngIf="formR.get('name')?.invalid && formR.get('name')?.touched">
+      error name maj then min
+    </div>
+    <br>
+    <div class="input-group">
+      <span class="input-group-text">Address</span>
+      <input type="text" aria-label="Address" formControlName="address" class="form-control">
+    </div>
+    <div class="alert alert-danger" *ngIf="formR.get('address')?.errors?.['maxlength']">
+      error address maxlength 10
+    </div>
+    <br>
+    <div class="input-group">
+      <span class="input-group-text">Image</span>
+      <input type="text" aria-label="Image" formControlName="image" class="form-control">
+    </div>
+    <br>
+    <div class="input-group">
+      <span class="input-group-text">Status</span>
+      <input type="text" aria-label="Status" formControlName="status" class="form-control">
+    </div>
+    <div class="alert alert-danger" *ngIf="getStatus()?.invalid && getStatus()?.touched">
+      il faut etre "disponnible"
+    </div>
+    <br>
+    <button class="btn-primary" (click)="update()" [disabled]="formR.invalid">
+      Save
+    </button>
+  </form>
+</div>
