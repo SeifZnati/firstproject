@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ResidenceService} from "../service/residence.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-form-residence',
@@ -10,7 +11,7 @@ import {ResidenceService} from "../service/residence.service";
 export class FormResidenceComponent implements OnInit {
 
   formR!: FormGroup
-  constructor(private resService:ResidenceService) {
+  constructor(private resService:ResidenceService, private router:Router) {
 
   }
 
@@ -34,7 +35,10 @@ export class FormResidenceComponent implements OnInit {
   add(){
     //console.log(JSON.stringify(this.formR.value));
     this.resService.addResidence(this.formR.value).subscribe(()=>{
-        console.log("Added!!!!!!!!!!!!!!!!!!!!!!!");
+        //console.log("Added!!!!!!!!!!!!!!!!!!!!!!!");
+      this.router.navigate([
+        '/residences'
+      ]);
     }
     )
   }
